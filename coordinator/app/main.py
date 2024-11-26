@@ -38,7 +38,7 @@ class MpicCoordinatorLambdaHandler:
             CheckType.CAA: {self.all_target_perspectives[i]: self.caa_remotes[i] for i in range(len(self.all_target_perspectives))}
         }
 
-        all_target_perspective_codes = [target_perspective.split('.')[1] for target_perspective in self.all_target_perspectives]
+        all_target_perspective_codes = self.all_target_perspectives
         all_possible_perspectives_by_code = MpicCoordinatorLambdaHandler.load_aws_region_config()
         self.target_perspectives = MpicCoordinatorLambdaHandler.convert_codes_to_remote_perspectives(
             all_target_perspective_codes, all_possible_perspectives_by_code)
