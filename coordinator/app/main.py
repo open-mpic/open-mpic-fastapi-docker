@@ -96,7 +96,7 @@ class MpicCoordinatorLambdaHandler:
 
 
         # Get the remote info from the data structure.
-        remote_info = self.arns_per_perspective_per_check_type[check_type][perspective.code]
+        remote_info = self.remotes_per_perspective_per_check_type[check_type][perspective.code]
 
         # Shuffle to pick a random endpoint order.
         random.shuffle(remote_info)
