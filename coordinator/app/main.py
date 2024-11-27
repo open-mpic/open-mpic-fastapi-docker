@@ -101,13 +101,12 @@ class MpicCoordinatorLambdaHandler:
         # Shuffle to pick a random endpoint order.
         random.shuffle(remote_info)
 
-        endpoint_index = 0
         for endpoint_info in remote_info:
             try:
-                url = remote_info['url']
+                url = endpoint_info['url']
                 headers = {}
-                if 'headers' in remote_info:
-                    headers = remote_info['headers']
+                if 'headers' in endpoint_info:
+                    headers = endpoint_info['headers']
 
                 r = requests.post(url, headers=headers, json=check_request.model_dump())
 
