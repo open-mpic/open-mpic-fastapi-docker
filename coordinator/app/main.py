@@ -108,12 +108,15 @@ class MpicCoordinatorLambdaHandler:
                 headers = {}
                 if 'headers' in remote_info:
                     headers = remote_info['headers']
+
                 r = requests.post(url, headers=headers, json=check_request.model_dump())
 
                 return self.check_response_adapter.validate_json(r.text)
             except requests.exceptions.RequestException as e:
+                print(traceback.format_exc())
                 continue
             except ValidationError as e:
+                print(traceback.format_exc())
                 continue
         #response = client.invoke(  # AWS Lambda-specific structure
         #        FunctionName=function_name,
