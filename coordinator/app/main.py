@@ -99,7 +99,8 @@ class MpicCoordinatorLambdaHandler:
         remote_info = self.remotes_per_perspective_per_check_type[check_type][perspective.code]
 
         # Shuffle to pick a random endpoint order.
-        random.shuffle(remote_info)
+        if len(remote_info) > 1:
+            random.shuffle(remote_info)
 
         for endpoint_info in remote_info:
             try:
