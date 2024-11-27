@@ -100,6 +100,7 @@ class MpicCoordinatorLambdaHandler:
 
         # Shuffle to pick a random endpoint order.
         if len(remote_info) > 1:
+            print("shuffling")
             random.shuffle(remote_info)
 
         for endpoint_info in remote_info:
