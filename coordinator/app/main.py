@@ -34,8 +34,8 @@ class MpicCoordinatorLambdaHandler:
         self.hash_secret = os.environ['hash_secret']
 
         self.remotes_per_perspective_per_check_type = {
-            CheckType.DCV: {self.all_target_perspectives[i]: self.dcv_remotes[i] for i in range(len(self.all_target_perspectives))},
-            CheckType.CAA: {self.all_target_perspectives[i]: self.caa_remotes[i] for i in range(len(self.all_target_perspectives))}
+            CheckType.DCV: self.dcv_remotes,
+            CheckType.CAA: self.caa_remotes
         }
 
         all_target_perspective_codes = self.all_target_perspectives
