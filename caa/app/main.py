@@ -4,6 +4,9 @@ from open_mpic_core.common_domain.check_request import CaaCheckRequest
 from open_mpic_core.common_domain.remote_perspective import RemotePerspective
 from open_mpic_core.mpic_caa_checker.mpic_caa_checker import MpicCaaChecker
 import os
+from dotenv import load_dotenv
+
+load_dotenv("config/app.conf")
 
 
 class MpicCaaCheckerLambdaHandler:
