@@ -1,7 +1,3 @@
-import sys
-from os.path import dirname
-sys.path.append(dirname(__file__) + "/open_mpic_core_python/src")
-
 from fastapi import FastAPI
 
 from importlib import resources
