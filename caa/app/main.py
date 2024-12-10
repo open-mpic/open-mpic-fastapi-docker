@@ -1,13 +1,12 @@
-import sys
-from os.path import dirname
-sys.path.append(dirname(__file__) + "/open_mpic_core_python/src")
-
 from fastapi import FastAPI # type: ignore
 
 from open_mpic_core.common_domain.check_request import CaaCheckRequest
 from open_mpic_core.common_domain.remote_perspective import RemotePerspective
 from open_mpic_core.mpic_caa_checker.mpic_caa_checker import MpicCaaChecker
 import os
+from dotenv import load_dotenv
+
+load_dotenv("config/app.conf")
 
 
 class MpicCaaCheckerLambdaHandler:

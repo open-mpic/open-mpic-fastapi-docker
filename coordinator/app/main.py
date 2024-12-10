@@ -1,7 +1,3 @@
-import sys
-from os.path import dirname
-sys.path.append(dirname(__file__) + "/open_mpic_core_python/src")
-
 from fastapi import FastAPI
 
 from importlib import resources
@@ -18,8 +14,11 @@ from open_mpic_core.common_domain.remote_perspective import RemotePerspective
 
 import requests
 import random
-import os
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv("config/app.conf")
 
 
 class MpicCoordinatorLambdaHandler:
