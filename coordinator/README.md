@@ -8,6 +8,8 @@ Instructions for developing the open-mpic coordinator service.
 
 If using the devcontainer, you already have the required tools installed.
 
+Note: config/app.conf has placeholder values. These must be updated before usage.
+
 Run the following commands to get started:
 
 ```bash
