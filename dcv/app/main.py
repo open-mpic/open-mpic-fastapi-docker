@@ -1,14 +1,13 @@
-import sys
-from os.path import dirname
-sys.path.append(dirname(__file__) + "/open_mpic_core_python/src")
-
 from fastapi import FastAPI
 
 from open_mpic_core.common_domain.check_request import DcvCheckRequest
 from open_mpic_core.common_domain.remote_perspective import RemotePerspective
 from open_mpic_core.mpic_dcv_checker.mpic_dcv_checker import MpicDcvChecker
-import os
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv("config/app.conf")
 
 class MpicDcvCheckerLambdaHandler:
     def __init__(self):

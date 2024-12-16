@@ -1,9 +1,0 @@
-[submodule "coordinator/app/open_mpic_core_python"]
-	path = coordinator/app/open_mpic_core_python
-	url = https://github.com/open-mpic/open-mpic-core-python.git
-[submodule "caa/app/open_mpic_core_python"]
-	path = caa/app/open_mpic_core_python
-	url = https://github.com/open-mpic/open-mpic-core-python.git
-[submodule "dcv/app/open_mpic_core_python"]
-	path = dcv/app/open_mpic_core_python
-	url = https://github.com/open-mpic/open-mpic-core-python.git
