@@ -1,5 +1,15 @@
-api-implementation/coordinator/available_perspectives.yaml
 
+dns-suffix.txt
+deployment.id
+keys/
+tmp/
+config.yaml
+
+*.generated.tf
+
+open-tofu/.terraform/
+*.tfstate
+*.tfstate.backup
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -162,5 +172,5 @@ cython_debug/
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#  (nuclear option is fine for now -- DS)
+#  (nuclear option is fine for now - DS)
 .idea/
