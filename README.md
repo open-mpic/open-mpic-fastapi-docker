@@ -16,7 +16,7 @@ Refer to the [Visual Studio Code Remote - Containers](https://code.visualstudio.
 
 Once you have opened the repository in a devcontainer, and it builds for the first time, close the terminal and reopen it to ensure that the environment is set up correctly and tools such as `pyenv` are available in the PATH.
 
-Once your environment is setup, change to the directory of the service you want to work on and run the following commands:
+Once your environment is set up, change to the directory of the service you want to work on and run the following commands:
 
 ```bash
 # Change to the directory of the service you want to work on

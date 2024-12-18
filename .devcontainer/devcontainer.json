@@ -17,7 +17,14 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "pip3 install --user -r requirements.txt",
 	"postCreateCommand": "curl https://pyenv.run | bash; ./.devcontainer/pyenv.sh",
-	"postStartCommand": ". ~/.bashrc"
+	"postStartCommand": ". ~/.bashrc",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"github.vscode-github-actions"
+			]
+		}
+	}
 	// Configure tool-specific properties.
 	// "customizations": {},
 
