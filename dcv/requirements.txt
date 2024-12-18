@@ -6,3 +6,4 @@ pydantic==2.8.2
 pyyaml==6.0.1
 aws-lambda-powertools==3.2.0
 git+https://github.com/open-mpic/open-mpic-core-python.git@main
+uvicorn>=0.22.0,<0.23.0
