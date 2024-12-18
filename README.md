@@ -20,7 +20,7 @@ Once your environment is setup, change to the directory of the service you want 
 
 ```bash
 # Change to the directory of the service you want to work on
-cd coordinator
+cd mpic_coordinator_service
 # Install the python version specified in the .python-version file
 pyenv install
 # Activate the python version specified in the .python-version file

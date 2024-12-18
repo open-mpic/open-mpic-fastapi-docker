@@ -133,7 +133,7 @@ class MpicCoordinatorLambdaHandler:
     def process_invocation(self, mpic_request: MpicRequest) -> dict:
         return self.mpic_coordinator.coordinate_mpic(mpic_request)
         #try:
-        #    mpic_response = self.mpic_coordinator.coordinate_mpic(mpic_request)
+        #    mpic_response = self.mpic_coordinator_service.coordinate_mpic(mpic_request)
         #    return {
         #        'statusCode': 200,
         #        'headers': {'Content-Type': 'application/json'},
