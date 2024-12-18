@@ -1,21 +1,20 @@
-FROM python:3.11
+# Set default python version
+ARG PYTHON_VERSION=3.11.9
 
+FROM python:${PYTHON_VERSION}
 
+# Set the working directory for subsequent instructions
 WORKDIR /code
 
-
-
+# Copy requirements.txt into the container
 COPY ./requirements.txt /code/requirements.txt
-
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
+WORKDIR /code
 
 COPY ./app /code/app
 
-VOLUME /code/available_perspectives.yaml
-
 EXPOSE 80
 
-CMD ["fastapi", "run", "app/main.py", "--proxy-headers",  "--port", "80"]
-
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]
