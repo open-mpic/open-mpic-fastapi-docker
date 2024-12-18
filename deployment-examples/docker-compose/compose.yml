@@ -2,7 +2,7 @@ name: open-mpic
 
 services:
   dcv:
-    image: ghcr.io/ahanafy/dcv:20241218-044627
+    image: ghcr.io/ahanafy/dcv:20241218-044627  # please use your own image
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dcv.rule=Host(`localhost`) && PathPrefix(`/dcv`)"
@@ -12,7 +12,7 @@ services:
         target: /code/config/app.conf
 
   coordinator:
-    image: ghcr.io/ahanafy/coordinator:20241218-044627
+    image: ghcr.io/ahanafy/coordinator:20241218-044627  # please use your own image
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.coordinator.rule=Host(`localhost`) && PathPrefix(`/coordinator`)"
@@ -20,9 +20,11 @@ services:
     configs:
       - source: coordinator_config
         target: /code/config/app.conf
+    volumes:
+      - ../../api-implementation/src/mpic_coordinator_service/resources/available_perspectives.yaml:/code/resources/available_perspectives.yaml
 
   caa:
-    image: ghcr.io/ahanafy/caa:20241218-044627
+    image: ghcr.io/ahanafy/caa:20241218-044627  # please use your own image
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.caa.rule=Host(`localhost`) && PathPrefix(`/caa`)"
