@@ -1,7 +1,7 @@
 # Set default python version
 ARG PYTHON_VERSION=3.11.9
 
-FROM python:${PYTHON_VERSION}-slim AS builder
+FROM python:${PYTHON_VERSION} AS builder
 
 # Set the working directory for subsequent instructions
 WORKDIR /code
@@ -11,7 +11,7 @@ COPY ./requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-FROM python:${PYTHON_VERSION}-slim
+FROM python:${PYTHON_VERSION}
 
 WORKDIR /code
 
