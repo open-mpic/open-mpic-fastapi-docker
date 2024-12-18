@@ -46,7 +46,7 @@ jobs:
     - name: Get Python Version
       id: python-version
       # read the ${{ matrix.service }}/.python-version file and load the version into a variable that is used in the next step
-      run: echo "PYTHON_VERSION=$(cat ${{ matrix.service }}/.python-version)" >> $GITHUB_ENV
+      run: echo "PYTHON_VERSION=$(cat ${{ matrix.service }}/.python-version)" >> $GITHUB_OUTPUT
       # the variable is now available as $PYTHON_VERSION
 
     # This step uses the `docker/build-push-action` action to build the image, based on your repository's `Dockerfile`. If the build succeeds, it pushes the image to GitHub Packages.
@@ -57,7 +57,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: ${{ matrix.service }}
-        build-args: "PYTHON_VERSION=${{ env.PYTHON_VERSION }}"
+        build-args: PYTHON_VERSION=${{ steps.python-version.outputs.PYTHON_VERSION }}
         file: ${{ matrix.service }}/Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
