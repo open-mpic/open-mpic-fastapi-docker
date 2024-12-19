@@ -1,5 +1,8 @@
-api-implementation/src/mpic_coordinator_service/available_perspectives.yaml
-
+# Files that should have .examples. in the repository but are otherwise deployment specific configuration
+deployment-examples/local-docker-compose/resources/available_perspectives.yaml
+deployment-examples/local-docker-compose/compose.yml
+deployment-examples/amazon-ec2/config.yaml
+deployment-examples/*/*generated.tf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

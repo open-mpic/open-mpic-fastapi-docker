@@ -21,6 +21,4 @@ COPY pyproject.toml .
 RUN hatch dep show requirements > ./app/requirements.txt && python -m pip install --extra-index-url https://test.pypi.org/simple/ -r ./app/requirements.txt
 EXPOSE 80
 
-# FIXME uncomment this... for now just debugging stuff...
-#CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]
-CMD ["sh"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]

@@ -8,7 +8,6 @@ services:
       dcv_remotes: '{{dcv-remotes-json}}'
       caa_remotes: '{{caa-remotes-json}}'
       default_perspective_count: "{{default-perspective-count}}"
-      enforce_distinct_rir_regions: "{{enforce-distinct-rir-regions}}"
       hash_secret: "{{hash-secret}}"
       {{absoloute-max-attempts-key}}
     ports:

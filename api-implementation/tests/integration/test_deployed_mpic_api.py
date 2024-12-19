@@ -15,7 +15,7 @@ import testing_api_client
 from open_mpic_core.mpic_coordinator.domain.mpic_response import MpicResponse
 from open_mpic_core.mpic_coordinator.messages.mpic_request_validation_messages import MpicRequestValidationMessages
 
-MPIC_REQUEST_PATH = "/mpic"
+MPIC_REQUEST_PATH = "mpic-coordinator/mpic"
 
 
 # noinspection PyMethodMayBeStatic

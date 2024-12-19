@@ -4,7 +4,7 @@ import requests
 # not a mock client, but a real client for live API testing
 class TestingApiClient:
     def __init__(self):
-        self.service_base_url = "localhost:8080"
+        self.service_base_url = "http://localhost:8000"
         self._session = requests.Session()
 
     def get(self, url_suffix):

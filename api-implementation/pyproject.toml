@@ -10,7 +10,7 @@ name = "open-mpic-restapi-server"
 dynamic = ["version"]
 description = 'MPIC standard API implementation leveraging FastAPI and Docker.'
 readme = "README.md"
-requires-python = ">=3.11.9"
+requires-python = "==3.11.9"
 license = "MIT"
 keywords = []
 authors = [
@@ -58,7 +58,7 @@ build.targets.wheel.packages = ["src"]
 [tool.hatch.envs.default]
 skip-install = false
 type="virtual"
-path="venv"
+path="../venv"
 
 [tool.hatch.envs.default.env-vars]
 PIP_INDEX_URL = "https://pypi.org/simple/"
@@ -82,7 +82,6 @@ install = "pip install . --no-cache-dir --upgrade"
 skip-install = false
 features = [
     "test",
-    "provided"
 ]
 installer = "pip"
 

@@ -6,7 +6,7 @@ Deployment scripts for Open MPIC using Fast API, Docker, and Nginx
 `cp config.example.yaml config.yaml`
 
 
-Pick a domain name sufix at the prompt that you control which you can use to allocate subdomains to perspectives.
+Pick a domain name suffix at the prompt that you control which you can use to allocate subdomains to perspectives.
 `./configure.py`
 
 # Tofu apply
@@ -21,7 +21,7 @@ Pick a domain name sufix at the prompt that you control which you can use to all
 
 `./get_ips.py`
 
-Assign the proided ips to the different sudomains using DNS. Wiat for records to propagate before continuing to next step.
+Assign the provided ips to the different subdomains using DNS. Wait for records to propagate before continuing to next step.
 
 
 # Install
