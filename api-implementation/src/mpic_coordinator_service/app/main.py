@@ -65,7 +65,7 @@ class MpicCoordinatorLambdaHandler:
         Reads in the available perspectives from a configuration yaml and returns them as a dict (map).
         :return: dict of available perspectives with region code as key
         """
-        with open("./available_perspectives.yaml") as file:
+        with open("./resources/available_perspectives.yaml") as file:
             aws_region_config_yaml = yaml.safe_load(file)
             aws_region_type_adapter = TypeAdapter(list[RemotePerspective])
             aws_regions_list = aws_region_type_adapter.validate_python(aws_region_config_yaml['available_regions'])
@@ -133,7 +133,7 @@ class MpicCoordinatorLambdaHandler:
     def process_invocation(self, mpic_request: MpicRequest) -> dict:
         return self.mpic_coordinator.coordinate_mpic(mpic_request)
         #try:
-        #    mpic_response = self.mpic_coordinator.coordinate_mpic(mpic_request)
+        #    mpic_response = self.mpic_coordinator_service.coordinate_mpic(mpic_request)
         #    return {
         #        'statusCode': 200,
         #        'headers': {'Content-Type': 'application/json'},

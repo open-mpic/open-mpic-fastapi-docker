@@ -17,4 +17,5 @@ COPY ./app /code/app
 
 EXPOSE 80
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]
+#CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]
+CMD ["sh", "-c", "if [ ! -f /code/available_perspectives.yaml ]; then echo 'Error: /code/available_perspectives.yaml not found. Please mount the file.'; exit 1; fi; uvicorn app.main:app --host 0.0.0.0 --port 80 --proxy-headers"]
