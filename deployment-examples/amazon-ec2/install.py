@@ -144,6 +144,7 @@ def main(raw_args=None):
         perspective_names = "|".join(perspectives)
         for perspective in perspectives:
             domains = [remotes[ip]['dns'] for ip in remotes if remotes[ip]['region'] == perspective]
+            # FIXME don't use a list, use a single entry point which will do load balancing.
             dcv_endpoints[perspective] = [{"url": f"https://{domain}/dcv", "headers": {"x-api-key": api_key, "Content-Type": "application/json"}} for domain in domains]
             caa_endpoints[perspective] = [{"url": f"https://{domain}/caa", "headers": {"x-api-key": api_key, "Content-Type": "application/json"}} for domain in domains]
         

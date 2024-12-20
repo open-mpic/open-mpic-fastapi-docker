@@ -96,8 +96,8 @@ configs:
   coordinator_config:
     content: |
       perspective_names=us-east-1|eu-central-1
-      dcv_remotes={"us-east-1":{"url":"http://localhost:8000/dcv-checker-1/dcv"},"eu-central-1":{"url":"http://localhost:8000/dcv-checker-2/dcv"}}
-      caa_remotes={"us-east-1":{"url":"http://localhost:8000/caa-checker-1/caa"},"eu-central-1":{"url":"http://localhost:8000/caa-checker-2/caa"}}
+      dcv_remotes={"us-east-1":{"url":"http://dcv_checker_1:80/dcv"},"eu-central-1":{"url":"http://dcv_checker_2:80/dcv"}}
+      caa_remotes={"us-east-1":{"url":"http://caa_checker_1:80/caa"},"eu-central-1":{"url":"http://caa_checker_2:80/caa"}}
       default_perspective_count=2
       absolute_max_attempts=2
       hash_secret=hash_secret
