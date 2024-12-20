@@ -16,14 +16,6 @@ import os
 import traceback
 from dotenv import load_dotenv
 
-# TODO debug
-from pathlib import Path
-# Add this before load_dotenv
-config_path = Path("config/app.conf")
-print(f"Current working directory: {os.getcwd()}")
-print(f"Config file exists: {config_path.exists()}")
-print(f"Absolute config path: {config_path.absolute()}")
-
 load_dotenv("config/app.conf")
 
 
@@ -93,29 +85,21 @@ class MpicCoordinatorService:
     # This function MUST validate its response and return a proper open_mpic_core object type.
     def call_remote_perspective(self, perspective: RemotePerspective, check_type: CheckType, check_request: BaseCheckRequest) -> CheckResponse:
         # Get the remote info from the data structure.
-        remote_info = self.remotes_per_perspective_per_check_type[check_type][perspective.code]
+        endpoint_info = self.remotes_per_perspective_per_check_type[check_type][perspective.code]
 
-        # Shuffle to pick a random endpoint order.
-        if len(remote_info) > 1:
-            print("shuffling")
-            random.shuffle(remote_info)
+        try:
+            url = endpoint_info['url']
+            headers = {}
+            if 'headers' in endpoint_info:
+                headers = endpoint_info['headers']
 
-        for endpoint_info in remote_info:
-            try:
-                url = endpoint_info['url']
-                headers = {}
-                if 'headers' in endpoint_info:
-                    headers = endpoint_info['headers']
+            r = requests.post(url, timeout=3, headers=headers, json=check_request.model_dump())
 
-                r = requests.post(url, timeout=3, headers=headers, json=check_request.model_dump())
-
-                return self.check_response_adapter.validate_json(r.text)
-            except requests.exceptions.RequestException:
-                print(traceback.format_exc())
-                continue
-            except ValidationError:
-                print(traceback.format_exc())
-                continue
+            return self.check_response_adapter.validate_json(r.text)
+        except requests.exceptions.RequestException:
+            print(traceback.format_exc())
+        except ValidationError:
+            print(traceback.format_exc())
 
     def perform_mpic(self, mpic_request: MpicRequest) -> dict:
         return self.mpic_coordinator.coordinate_mpic(mpic_request)

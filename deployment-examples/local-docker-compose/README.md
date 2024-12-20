@@ -16,7 +16,7 @@ Update the `configs` section in the `compose.yml` file with the correct values f
 To start all services and Traefik, run the following command:
 
 ```sh
-local-docker-compose up -d
+docker compose up -d
 ```
 
 This command will start all the services defined in the `compose.yml` file and Traefik will route traffic to each service based on the defined rules.
@@ -25,9 +25,9 @@ This command will start all the services defined in the `compose.yml` file and T
 
 You can access your services using the following URLs:
 
-- http://localhost:8000/dcv - dcv service
-- http://localhost:8000/caa - caa service
-- http://localhost:8000/coordinator - coordinator service
+- http://localhost:8000/dcv-checker-X/dcv - dcv service
+- http://localhost:8000/caa-checker-X/caa - caa service
+- http://localhost:8000/mpic-coordinator/mpic - coordinator service
 
 You can also access the Traefik dashboard at [http://localhost:8080/dashboard](http://localhost:8080/dashboard).
 
@@ -36,7 +36,7 @@ You can also access the Traefik dashboard at [http://localhost:8080/dashboard](h
 To stop all running services, use the following command:
 
 ```sh
-local-docker-compose down
+docker compose down
 ```
 
 This will stop and remove all the containers defined in the `compose.yml` file.
