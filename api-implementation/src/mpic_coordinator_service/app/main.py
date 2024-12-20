@@ -16,6 +16,14 @@ import os
 import traceback
 from dotenv import load_dotenv
 
+# TODO debug
+from pathlib import Path
+# Add this before load_dotenv
+config_path = Path("config/app.conf")
+print(f"Current working directory: {os.getcwd()}")
+print(f"Config file exists: {config_path.exists()}")
+print(f"Absolute config path: {config_path.absolute()}")
+
 load_dotenv("config/app.conf")
 
 

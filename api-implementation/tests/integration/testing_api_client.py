@@ -4,7 +4,7 @@ import requests
 # not a mock client, but a real client for live API testing
 class TestingApiClient:
     def __init__(self):
-        self.service_base_url = "http://localhost:8000"
+        self.service_base_url = "http://localhost:8000/mpic-coordinator"
         self._session = requests.Session()
 
     def get(self, url_suffix):
