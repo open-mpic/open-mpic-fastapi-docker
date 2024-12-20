@@ -1,6 +1,9 @@
+import json
+from importlib import resources
+from pathlib import Path
+
 from fastapi import FastAPI
 
-import yaml
 from pydantic import TypeAdapter, ValidationError
 from open_mpic_core.common_domain.check_request import BaseCheckRequest
 from open_mpic_core.common_domain.check_response import CheckResponse
@@ -9,12 +12,13 @@ from open_mpic_core.mpic_coordinator.mpic_coordinator import MpicCoordinator, Mp
 from open_mpic_core.common_domain.enum.check_type import CheckType
 from open_mpic_core.mpic_coordinator.domain.remote_perspective import RemotePerspective
 
+import yaml
 import requests
-import random
-import json
 import os
 import traceback
 from dotenv import load_dotenv
+
+from .configuration_model import PerspectiveEndpointInfo, PerspectiveEndpoints
 
 load_dotenv("config/app.conf")
 
@@ -22,22 +26,21 @@ load_dotenv("config/app.conf")
 class MpicCoordinatorService:
     def __init__(self):
         # load environment variables
-        self.all_target_perspectives = os.environ['perspective_names'].split("|")
-        self.dcv_remotes = json.loads(os.environ['dcv_remotes'])
-        self.caa_remotes = json.loads(os.environ['caa_remotes'])
+        perspectives_json = os.environ['perspectives']
+        perspectives = {code: PerspectiveEndpoints.model_validate(endpoints) for code, endpoints in json.loads(perspectives_json).items()}
+        self.all_target_perspective_codes = list(perspectives.keys())
         self.default_perspective_count = int(os.environ['default_perspective_count'])
         self.global_max_attempts = int(os.environ['absolute_max_attempts']) if 'absolute_max_attempts' in os.environ else None
         self.hash_secret = os.environ['hash_secret']
 
         self.remotes_per_perspective_per_check_type = {
-            CheckType.DCV: self.dcv_remotes,
-            CheckType.CAA: self.caa_remotes
+            CheckType.DCV: {perspective_code: perspective_config.dcv_endpoint_info for perspective_code, perspective_config in perspectives.items()},
+            CheckType.CAA: {perspective_code: perspective_config.caa_endpoint_info for perspective_code, perspective_config in perspectives.items()}
         }
 
-        all_target_perspective_codes = self.all_target_perspectives
         all_possible_perspectives_by_code = MpicCoordinatorService.load_available_perspectives_config()
         self.target_perspectives = MpicCoordinatorService.convert_codes_to_remote_perspectives(
-            all_target_perspective_codes, all_possible_perspectives_by_code)
+            self.all_target_perspective_codes, all_possible_perspectives_by_code)
 
         self.mpic_coordinator_configuration = MpicCoordinatorConfiguration(
             self.target_perspectives,
@@ -61,12 +64,14 @@ class MpicCoordinatorService:
         Reads in the available perspectives from a configuration yaml and returns them as a dict (map).
         :return: dict of available perspectives with region code as key
         """
-        with open("./resources/available_perspectives.yaml") as file:
-            aws_region_config_yaml = yaml.safe_load(file)
-            aws_region_type_adapter = TypeAdapter(list[RemotePerspective])
-            aws_regions_list = aws_region_type_adapter.validate_python(aws_region_config_yaml['available_regions'])
-            aws_regions_dict = {region.code: region for region in aws_regions_list}
-            return aws_regions_dict
+        resource_path = Path(__file__).parent.parent / 'resources' / 'available_perspectives.yaml'
+
+        with resource_path.open() as file:
+            region_config_yaml = yaml.safe_load(file)
+            region_type_adapter = TypeAdapter(list[RemotePerspective])
+            regions_list = region_type_adapter.validate_python(region_config_yaml['available_regions'])
+            regions_dict = {region.code: region for region in regions_list}
+            return regions_dict
 
     @staticmethod
     def convert_codes_to_remote_perspectives(perspective_codes: list[str],
@@ -85,15 +90,10 @@ class MpicCoordinatorService:
     # This function MUST validate its response and return a proper open_mpic_core object type.
     def call_remote_perspective(self, perspective: RemotePerspective, check_type: CheckType, check_request: BaseCheckRequest) -> CheckResponse:
         # Get the remote info from the data structure.
-        endpoint_info = self.remotes_per_perspective_per_check_type[check_type][perspective.code]
+        endpoint_info: PerspectiveEndpointInfo = self.remotes_per_perspective_per_check_type[check_type][perspective.code]
 
         try:
-            url = endpoint_info['url']
-            headers = {}
-            if 'headers' in endpoint_info:
-                headers = endpoint_info['headers']
-
-            r = requests.post(url, timeout=3, headers=headers, json=check_request.model_dump())
+            r = requests.post(endpoint_info.url, timeout=3, headers=endpoint_info.headers, json=check_request.model_dump())
 
             return self.check_response_adapter.validate_json(r.text)
         except requests.exceptions.RequestException:

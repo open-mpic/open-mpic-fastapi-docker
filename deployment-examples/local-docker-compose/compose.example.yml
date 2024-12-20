@@ -95,6 +95,7 @@ configs:
       default_caa_domains="example.com|example.org"
   coordinator_config:
     content: |
+      perspectives={"us-east-1":{"caa_endpoint_info":{"url":"http://caa_checker_1:80/dcv"},"dcv_endpoint_info":{"url":"http://dcv_checker_1:80/dcv"}},"eu-central-1":{"caa_endpoint_info":{"url":"http://caa_checker_2:80/dcv"},"dcv_endpoint_info":{"url":"http://dcv_checker_2:80/dcv"}}}
       perspective_names=us-east-1|eu-central-1
       dcv_remotes={"us-east-1":{"url":"http://dcv_checker_1:80/dcv"},"eu-central-1":{"url":"http://dcv_checker_2:80/dcv"}}
       caa_remotes={"us-east-1":{"url":"http://caa_checker_1:80/caa"},"eu-central-1":{"url":"http://caa_checker_2:80/caa"}}
