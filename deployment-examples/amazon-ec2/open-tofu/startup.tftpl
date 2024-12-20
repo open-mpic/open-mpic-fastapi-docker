@@ -4,6 +4,10 @@ echo "Copying the SSH Key to the server"
 
 echo -e "${key}" >> /home/ubuntu/.ssh/authorized_keys
 
+ufw enable
+ufw allow 22
+ufw allow 80
+ufw allow 443
 
 apt update
 apt upgrade
