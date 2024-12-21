@@ -6,8 +6,7 @@ import yaml
 from open_mpic_core.mpic_coordinator.domain.remote_perspective import RemotePerspective
 from pydantic import TypeAdapter
 
-from mpic_coordinator_service.app.configuration_model import PerspectiveEndpoints, PerspectiveEndpointInfo
-from mpic_coordinator_service.app.main import MpicCoordinatorService
+from mpic_coordinator_service.app.main import MpicCoordinatorService, PerspectiveEndpoints, PerspectiveEndpointInfo
 
 
 # noinspection PyMethodMayBeStatic

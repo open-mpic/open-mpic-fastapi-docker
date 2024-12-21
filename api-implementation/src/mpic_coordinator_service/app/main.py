@@ -1,10 +1,9 @@
 import json
-from importlib import resources
 from pathlib import Path
 
 from fastapi import FastAPI
 
-from pydantic import TypeAdapter, ValidationError
+from pydantic import TypeAdapter, ValidationError, BaseModel, Field
 from open_mpic_core.common_domain.check_request import BaseCheckRequest
 from open_mpic_core.common_domain.check_response import CheckResponse
 from open_mpic_core.mpic_coordinator.domain.mpic_request import MpicRequest
@@ -18,9 +17,17 @@ import os
 import traceback
 from dotenv import load_dotenv
 
-from .configuration_model import PerspectiveEndpointInfo, PerspectiveEndpoints
-
 load_dotenv("config/app.conf")
+
+
+class PerspectiveEndpointInfo(BaseModel):
+    url: str
+    headers: dict[str, str] | None = Field(default_factory=dict)
+
+
+class PerspectiveEndpoints(BaseModel):
+    dcv_endpoint_info: PerspectiveEndpointInfo
+    caa_endpoint_info: PerspectiveEndpointInfo
 
 
 class MpicCoordinatorService:
